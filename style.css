@@ -22,7 +22,7 @@ body{
 .cards, .card, .view{
     display: flex;
     align-items: center;
-    justify-content:center;
+    justify-content: center;
 }
 .cards{
     height: 100%;
@@ -37,7 +37,6 @@ body{
     transform-style: preserve-3d;
     height: calc(100% / 4 - 10px);
     width: calc(100% / 4 - 10px);
-
 }
 .cards .card .view{
     width: 100%;
@@ -45,6 +44,8 @@ body{
     position: absolute;
     background: purple;
     border-radius: 7px;
+    transition: transform 0.25s linear;
+    backface-visibility: hidden;
     box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 
 }
@@ -59,4 +60,13 @@ body{
 
 .card .back-view img{
     max-width: 45px;
+}
+
+.card:hover .front-view{
+    transform: rotateY(180deg);
+}
+
+
+.card:hover .back-view{
+    transform: rotateY(0);
 }
