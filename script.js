@@ -25,7 +25,9 @@ function matchCard(img1, img2) {
         matchedCard++; //if increment matched value by 1
         // if matched value is 8 that means user has matched all the cards (8 * 2 = 16 cards)
         if(matchedCard == 8) {
-            return shuffleCard();
+            setTimeout(() => {
+                return shuffleCard();
+            }, 1000); //calling shuffleCard function after
         }
         cardOne.removeEventListener("click", flipCard);
         cardTwo.removeEventListener("click", flipCard);
@@ -43,7 +45,7 @@ function matchCard(img1, img2) {
         // removing both the shake & flip classes from the both card after 1.2 seconds 
         cardOne.classList.remove("shake","flip",);
         cardTwo.classList.remove("shake","flip",);
-        cardOne = cardTwo = "";// setting both card value to blank
+        cardOne = cardTwo = ""; // setting both card value to blank
         disableDeck = false;
     }, 1200);
 }
@@ -51,15 +53,21 @@ function matchCard(img1, img2) {
 function shuffleCard() {
     matchedCard = 0;
     cardOne = cardTwo = "";
-    cards.forEach(card => {
+    disableDeck = false;
+    // creating array of 16 items and each item is repeated twice
+    let arr = [1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8];
+    arr.sort(() => Math.random() > 0.5 ? 1 : -1); // sorting array items randomly
+    
+    // removing flip class from all cards and passing random image to each card
+    cards.forEach((card, index) => {
         card.classList.remove("flip");
+        let imgTag = card.querySelector("img");
+        imgTag.src = `images/img-${arr[index]}.png`;
         card.addEventListener("click", flipCard);
         disableDeck = false;
-
     });
-
-
 }
+shuffleCard()
 
 cards.forEach(card => { //adding click event to all cards
     card.addEventListener("click", flipCard);
